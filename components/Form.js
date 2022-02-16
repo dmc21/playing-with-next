@@ -1,6 +1,4 @@
 import { Card, Grid, Text, Input, Row, Button, Textarea, Avatar, Divider, Loading } from "@nextui-org/react";
-import { ToastContainer, toast } from 'react-toastify';
-import 'react-toastify/dist/ReactToastify.css'
 
 export default function Form(props) {
 
@@ -29,8 +27,6 @@ export default function Form(props) {
             console.log(`Error ${error}`)
         });
 
-        toast("Note successfully added")
-
         event.target.title.value = ""
         event.target.description.value = ""
 
@@ -38,7 +34,6 @@ export default function Form(props) {
 
     return (
         <Grid md={4} xs={12}>
-            <ToastContainer />
             <Card>
                 {props.loading ? <Loading /> : <Card.Header css={{ justifyContent: "space-between" }}>
                     <Grid css={{

@@ -1,7 +1,6 @@
 import { Card, Grid, Text, Switch, Button } from "@nextui-org/react";
 import { Delete } from 'react-iconly';
 import firebase from '../services/auth';
-import { ToastContainer, toast } from 'react-toastify';
 
 export default function Notes(props) {
 
@@ -12,8 +11,6 @@ export default function Notes(props) {
             console.log("Removed")
         })
 
-        toast("Note successfully deleted")
-
     }
     const updateChecked = (note) => {
         firebase.firestore().collection("notes").doc(note.path).set({
@@ -21,8 +18,6 @@ export default function Notes(props) {
         }, { merge: true }).then(res => {
             console.log("updated!")
         })
-
-        toast("Note succesfully updated");
 
     }
 
@@ -32,8 +27,6 @@ export default function Notes(props) {
             gap: "10px",
 
         }}>
-
-            <ToastContainer></ToastContainer>
 
             {props.notes.map((note, i) => {
 
