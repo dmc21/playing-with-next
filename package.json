@@ -19,6 +19,7 @@
     "react-firebase-hooks": "3.0.4",
     "react-firebaseui": "5.0.2",
     "react-iconly": "^2.2.5",
+    "react-toastify": "^8.2.0",
     "yup": "^0.32.11"
   },
   "devDependencies": {
