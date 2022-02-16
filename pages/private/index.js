@@ -1,4 +1,4 @@
-import {  Grid } from "@nextui-org/react";
+import { Grid } from "@nextui-org/react";
 import { useState, useEffect } from "react";
 import firebase from '../../services/auth';
 import { useRouter } from 'next/router';
@@ -35,7 +35,7 @@ export default function PrivateView() {
 
     }, [user, loading])
 
-    
+
 
 
     return (
@@ -43,7 +43,7 @@ export default function PrivateView() {
         <NextUIProvider theme={darkTheme}>
             <Grid.Container gap={2} justify="center">
                 <Form loading={loading} user={user} firebase={firebase}></Form>
-                <Notes notes={notes}/>
+                <Notes notes={notes} />
             </Grid.Container>
         </NextUIProvider>
 
