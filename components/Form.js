@@ -79,7 +79,6 @@ export default function Form(props) {
                                     name="description"
                                     label="Description"
                                     placeholder="Default description"
-
                                 />
                             </Grid>
                         </Card.Body>
