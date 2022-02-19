@@ -1,6 +1,73 @@
 import { Card, Grid, Text, Input, Row, Button, Textarea, Avatar, Divider, Loading } from "@nextui-org/react";
 
+import {useFormik} from 'formik';
+import { useState } from "react";
+
 export default function Form(props) {
+
+    const [titleHelper, setTitleHelper] = useState({
+        helperText:"",
+        helperColor: ""
+    })
+
+    const [descriptionHelper, setDescriptionHelper] = useState({
+        helperText:"",
+        helperColor: ""
+    })
+
+    const formik = useFormik({
+        initialValues: {
+            title: '',
+            description: ''
+        },
+
+        onChange: event => {
+            console.log(event);
+        },
+
+        onSubmit: v => {
+            onCreateNote();
+        },
+    })
+
+
+    const validateTitle = () => {
+        if (formik.values.title.trim() === ""){
+            setTitleHelper({
+                helperText: "Title is required",
+                helperColor: "error"
+            })
+
+            return false;
+        }
+
+        setTitleHelper({
+            helperText: "This is a good title!",
+            helperColor: "success"
+        })
+
+        return true
+    }
+
+    const validateDescription = () => {
+    
+        if (formik.values.description.trim() === ""){
+            setDescriptionHelper({
+                helperText: "Description is required",
+                helperColor: "error"
+            })
+
+            return false
+        }
+
+        setDescriptionHelper({
+            helperText: "This is a good description!",
+            helperColor: "success"
+        })
+
+        return true
+
+    }
 
     const signOut = () => {
         props.firebase.auth().signOut().then(() => {
@@ -8,13 +75,12 @@ export default function Form(props) {
         })
     }
 
-    const onCreateNote = (event) => {
-        event.preventDefault();
+    const onCreateNote = () => {
 
         const note = {
             githubId: props.user.uid,
-            title: event.target.title.value,
-            description: event.target.description.value,
+            title: formik.values.title,
+            description: formik.values.description,
             isDone: false
         }
 
@@ -27,8 +93,16 @@ export default function Form(props) {
             console.log(`Error ${error}`)
         });
 
-        event.target.title.value = ""
-        event.target.description.value = ""
+        formik.resetForm()
+
+        setTitleHelper({
+            helperColor: "",
+            helperText: ""
+        })
+        setDescriptionHelper({
+            helperColor: "",
+            helperText: ""
+        })
 
     }
 
@@ -53,13 +127,18 @@ export default function Form(props) {
 
                 <Divider />
                 <Card.Body>
-                    <form onSubmit={(e) => onCreateNote(e)}>
+                    <form onSubmit={formik.handleSubmit}>
                         <Card.Body justify="center">
                             <Grid>
                                 <Input
                                     clearable
                                     shadow={false}
                                     type="text"
+                                    value={formik.values.title}
+                                    onChange={formik.handleChange}
+                                    helperText={titleHelper.helperText}
+                                    helperColor={titleHelper.helperColor}
+                                    onKeyUp={() => validateTitle()}
                                     name="title"
                                     label="Title"
                                     placeholder="Default title">
@@ -69,8 +148,12 @@ export default function Form(props) {
                             <Grid>
                                 <Textarea
                                     fullWidth={true}
-                                    clearable
-                                    shadow={false}
+                                    shadow={true}
+                                    onChange={formik.handleChange}
+                                    value={formik.values.description}
+                                    helperText={descriptionHelper.helperText}
+                                    helperColor={descriptionHelper.helperColor}
+                                    onKeyUp={() => validateDescription()}
                                     name="description"
                                     label="Description"
                                     placeholder="Default description"
@@ -80,7 +163,12 @@ export default function Form(props) {
 
                         <Card.Footer justify="center">
                             <Row justify='center'>
-                                <Button type="submit" shadow color="success" auto>
+                                <Button 
+                                disabled={formik.values.title.trim() === "" || formik.values.description.trim() === ""} 
+                                type="submit" 
+                                shadow={formik.values.title.trim() !== "" && formik.values.description.trim() !== ""} 
+                                color="success" 
+                                auto>
                                     Create
                                 </Button>
                             </Row>
