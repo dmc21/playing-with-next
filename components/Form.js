@@ -1,17 +1,17 @@
 import { Card, Grid, Text, Input, Row, Button, Textarea, Avatar, Divider, Loading } from "@nextui-org/react";
 
-import {useFormik} from 'formik';
+import { useFormik } from 'formik';
 import { useState } from "react";
 
 export default function Form(props) {
 
     const [titleHelper, setTitleHelper] = useState({
-        helperText:"",
+        helperText: "",
         helperColor: ""
     })
 
     const [descriptionHelper, setDescriptionHelper] = useState({
-        helperText:"",
+        helperText: "",
         helperColor: ""
     })
 
@@ -21,10 +21,6 @@ export default function Form(props) {
             description: ''
         },
 
-        onChange: event => {
-            console.log(event);
-        },
-
         onSubmit: v => {
             onCreateNote();
         },
@@ -32,7 +28,7 @@ export default function Form(props) {
 
 
     const validateTitle = () => {
-        if (formik.values.title.trim() === ""){
+        if (formik.values.title.trim() === "") {
             setTitleHelper({
                 helperText: "Title is required",
                 helperColor: "error"
@@ -50,8 +46,8 @@ export default function Form(props) {
     }
 
     const validateDescription = () => {
-    
-        if (formik.values.description.trim() === ""){
+
+        if (formik.values.description.trim() === "") {
             setDescriptionHelper({
                 helperText: "Description is required",
                 helperColor: "error"
@@ -98,7 +94,8 @@ export default function Form(props) {
         setTitleHelper({
             helperColor: "",
             helperText: ""
-        })
+        });
+
         setDescriptionHelper({
             helperColor: "",
             helperText: ""
@@ -163,12 +160,12 @@ export default function Form(props) {
 
                         <Card.Footer justify="center">
                             <Row justify='center'>
-                                <Button 
-                                disabled={formik.values.title.trim() === "" || formik.values.description.trim() === ""} 
-                                type="submit" 
-                                shadow={formik.values.title.trim() !== "" && formik.values.description.trim() !== ""} 
-                                color="success" 
-                                auto>
+                                <Button
+                                    disabled={formik.values.title.trim() === "" || formik.values.description.trim() === ""}
+                                    type="submit"
+                                    shadow={formik.values.title.trim() !== "" && formik.values.description.trim() !== ""}
+                                    color="success"
+                                    auto>
                                     Create
                                 </Button>
                             </Row>

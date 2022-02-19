@@ -8,18 +8,13 @@ import { Loading } from '@nextui-org/react';
 
 // Configure FirebaseUI.
 const uiConfig = {
-  // Redirect to / after sign in is successful. Alternatively you can provide a callbacks.signInSuccess function.
   signInSuccessUrl: "/private",
-  // GitHub as the only included Auth Provider.
-  // You could add and configure more here!
   signInOptions: [firebase.auth.GithubAuthProvider.PROVIDER_ID],
 };
 
 export default function App() {
 
-
   const router = useRouter();
-  
   const [user, loading, error] = useAuthState(firebase.auth());
 
   useEffect(() => {
@@ -42,7 +37,6 @@ return (
       <Grid>
             <Row justify='center'>
               {loading ? <Loading></Loading> : <StyledFirebaseAuth uiConfig={uiConfig} firebaseAuth={firebase.auth()} />}
-              
             </Row>
       </Grid>
     </Grid.Container>
