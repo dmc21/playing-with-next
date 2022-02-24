@@ -8,7 +8,6 @@ function MyApp({ Component, pageProps }) {
     <NextUIProvider defaultTheme="dark" justify="center" alignItems="center">
       <Head>
         <title>NextJS App</title>
-        <meta charset="utf-8"/>
         <meta name="description" content="Serverless NextJS App using firebase as server"/>
         <meta name="author" content="David Mora Cáceres" />
       </Head>
